@@ -24,11 +24,10 @@ class Otentikasi extends CI_Controller {
 	public function keluar() {
 		$method = $_SERVER["REQUEST_METHOD"];
         if ($method === "GET") {
-			$username = $this->input->post("username");
-			if ($this->session->unset_userdata("username")) {
-                json_output(200, array("status" => 200, "keterangan" => "Sesi berhasil dikeluarkan."));
+			if ($this->session->unset_userdata("username") === NULL) {
+                json_output(200, array("status" => 200, "keterangan" => "Anda berhasil keluar dari sesi masuk."));
             } else {
-                json_output(200, array("status" => 204, "keterangan" => "Sesi gagal dikeluarkan."));
+                json_output(200, array("status" => 204, "keterangan" => "Anda gagal keluar dari sesi masuk."));
             }
 		}
 		else {

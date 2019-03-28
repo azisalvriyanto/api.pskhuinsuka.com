@@ -59,6 +59,7 @@ class M_Keanggotaan extends CI_Model {
     }
 
     public function tambah(
+        $keterangan,
         $periode,
         $nama,
         $username,
@@ -84,6 +85,7 @@ class M_Keanggotaan extends CI_Model {
         );
         $this->db->insert("akun",
             array(
+                "akun_keterangan" => $keterangan,
                 "akun_username" => $username,
                 "akun_password" => $password
             )
@@ -107,6 +109,7 @@ class M_Keanggotaan extends CI_Model {
     }
 
     public function perbarui(
+        $keterangan,
         $username,
         $nama,
         $divisi,
@@ -115,7 +118,8 @@ class M_Keanggotaan extends CI_Model {
         $telepon,
         $motto
     ) {
-        $query = $this->db->where("keanggotaan_username", $username)->update("keanggotaan",
+        $this->db->trans_begin();
+        $this->db->where("keanggotaan_username", $username)->update("keanggotaan",
             array(
                 "keanggotaan_nama" => $nama,
                 "keanggotaan_divisi" => $divisi,
@@ -125,6 +129,28 @@ class M_Keanggotaan extends CI_Model {
                 "keanggotaan_motto" => $motto
             )
         );
+        $this->db->where("akun_username", $username)->update("akun",
+            array(
+                "akun_keterangan" => $keterangan
+            )
+        );
+
+        if ($this->db->trans_status() === TRUE) {
+            $this->db->trans_commit();
+
+            return array(
+                "status" => 200,
+                "keterangan" => "Profil berhasil ditambahkan."
+            );
+        } else {
+            $this->db->trans_rollback();
+
+            return array(
+                "status" => 204,
+                "keterangan" => "Profil gagal ditambahkan."
+            );
+        }
+
         if (!empty($query)) {
             return array(
                 "status" => 200,

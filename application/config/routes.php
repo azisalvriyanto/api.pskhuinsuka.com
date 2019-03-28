@@ -6,7 +6,9 @@ $route["404_override"]			= "Galat/_404";
 $route["translate_uri_dashes"]	= FALSE;
 
 //API
-$route["otentikasi"]    = "Otentikasi/index";
+$route["otentikasi"]        = "Otentikasi/index";
+$route["otentikasi/masuk"]  = "Otentikasi/masuk";
+$route["otentikasi/keluar"] = "Otentikasi/keluar";
 
 $route["organisasi"]                = "Organisasi/index";
 $route["organisasi/simpan"]         = "Organisasi/simpan";

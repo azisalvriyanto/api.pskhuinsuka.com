@@ -34,6 +34,7 @@ class Keanggotaan extends CI_Controller {
         $method = $_SERVER["REQUEST_METHOD"];
         if ($method === "POST") {
 			$response = $this->M_Keanggotaan->tambah(
+				$this->input->post("keterangan"),
 				$this->input->post("periode"),
 				$this->input->post("nama"),
 				$this->input->post("username"),
@@ -56,6 +57,7 @@ class Keanggotaan extends CI_Controller {
         $method = $_SERVER["REQUEST_METHOD"];
         if ($method === "POST") {
 			$response = $this->M_Keanggotaan->perbarui(
+				$this->input->post("keterangan"),
 				$this->input->post("username"),
 				$this->input->post("nama"),
 				$this->input->post("divisi"),

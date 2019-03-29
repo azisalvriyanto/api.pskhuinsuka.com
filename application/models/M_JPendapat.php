@@ -32,23 +32,22 @@ class M_JPendapat extends CI_Model {
         $pendapat_3
     )
     {
-        $query1 = $this->db->where("jpendapat_id", 1)->update("jpendapat",
+        $this->db->trans_begin();
+        $this->db->where("jpendapat_id", 1)->update("jpendapat",
             array(
                 "jpendapat_nama" => $nama_1,
                 "jpendapat_jabatan" => $jabatan_1,
                 "jpendapat_pendapat" => $pendapat_1,
             )
         );
-
-        $query2 = $this->db->where("jpendapat_id", 2)->update("jpendapat",
+        $this->db->where("jpendapat_id", 2)->update("jpendapat",
             array(
                 "jpendapat_nama" => $nama_2,
                 "jpendapat_jabatan" => $jabatan_2,
                 "jpendapat_pendapat" => $pendapat_2,
             )
         );
-
-        $query3 = $this->db->where("jpendapat_id", 3)->update("jpendapat",
+        $this->db->where("jpendapat_id", 3)->update("jpendapat",
             array(
                 "jpendapat_nama" => $nama_3,
                 "jpendapat_jabatan" => $jabatan_3,
@@ -56,13 +55,16 @@ class M_JPendapat extends CI_Model {
             )
         );
 
-        if (!empty($query1) && !empty($query2) && !empty($query3)) {
+        if ($this->db->trans_status() === TRUE) {
+            $this->db->trans_commit();
+
             return array(
                 "status" => 200,
                 "keterangan" => "Jejak pendapat berhasil diperbarui."
             );
-        }
-        else {
+        } else {
+            $this->db->trans_rollback();
+
             return array(
                 "status" => 204,
                 "keterangan" => "Jejak pendapat gagal diperbarui."

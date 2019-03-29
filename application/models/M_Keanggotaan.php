@@ -150,19 +150,6 @@ class M_Keanggotaan extends CI_Model {
                 "keterangan" => "Profil gagal ditambahkan."
             );
         }
-
-        if (!empty($query)) {
-            return array(
-                "status" => 200,
-                "keterangan" => "Profil berhasil diperbarui."
-            );
-        }
-        else {
-            return array(
-                "status" => 204,
-                "keterangan" => "Profil gagal diperbarui."
-            );
-        }
     }
 
     public function hapus($username)

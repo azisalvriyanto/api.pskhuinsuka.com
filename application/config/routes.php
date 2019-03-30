@@ -32,3 +32,6 @@ $route["divisi/(:any)"]         = "Divisi/lihat/$1";
 
 $route["jpendapat"]         = "JPendapat/daftar";
 $route["jpendapat/simpan"]  = "JPendapat/simpan";
+
+$route["artikel/tambah"]        = "Artikel/tambah";
+$route["artikel/hapus/(:num)"]  = "Artikel/hapus/$1";

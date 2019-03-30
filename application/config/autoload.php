@@ -139,5 +139,6 @@ $autoload["model"] = array(
     "M_Divisi",
     "M_Keanggotaan",
     "M_JPendapat",
-    "M_Otentikasi"
+    "M_Otentikasi",
+    "M_Artikel"
 );

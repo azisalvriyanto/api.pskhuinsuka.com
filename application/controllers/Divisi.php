@@ -21,7 +21,10 @@ class Divisi extends CI_Controller {
 	public function lihat($divisi)
 	{
 		$method = $_SERVER["REQUEST_METHOD"];
-		if ($method === "GET") {
+		if (
+			$method === "GET"
+			&& !empty($divisi) && is_numeric($divisi) === TRUE
+		) {
 				$response = $this->M_Divisi->lihat($divisi);
 				json_output(200, $response);
 		} else {
@@ -32,7 +35,10 @@ class Divisi extends CI_Controller {
 	public function jabatan($divisi)
 	{
 		$method = $_SERVER["REQUEST_METHOD"];
-		if ($method === "GET") {
+		if (
+			$method === "GET"
+			&& !empty($divisi) && is_numeric($divisi) === TRUE
+		) {
 				$response = $this->M_Divisi->jabatan($divisi);
 				json_output(200, $response);
 		} else {

@@ -9,7 +9,11 @@ class Otentikasi extends CI_Controller {
 
 	public function masuk() {
 		$method = $_SERVER["REQUEST_METHOD"];
-        if ($method === "POST") {
+        if (
+			$method === "POST"
+			&& !empty($this->input->post("username")) && is_string($this->input->post("username"))
+            && !empty($this->input->post("password")) && is_string($this->input->post("password"))
+		) {
 			$username = $this->input->post("username");
 			$password = $this->input->post("password");
 

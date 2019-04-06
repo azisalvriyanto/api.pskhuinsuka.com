@@ -61,9 +61,9 @@ class M_Keanggotaan extends CI_Model {
     public function tambah(
         $keterangan,
         $periode,
-        $nama,
         $username,
         $password,
+        $nama,
         $divisi,
         $jabatan,
         $email,
@@ -110,6 +110,7 @@ class M_Keanggotaan extends CI_Model {
 
     public function perbarui(
         $keterangan,
+        $periode,
         $username,
         $nama,
         $divisi,
@@ -121,6 +122,7 @@ class M_Keanggotaan extends CI_Model {
         $this->db->trans_begin();
         $this->db->where("keanggotaan_username", $username)->update("keanggotaan",
             array(
+                "keanggotaan_periode" => $periode,
                 "keanggotaan_nama" => $nama,
                 "keanggotaan_divisi" => $divisi,
                 "keanggotaan_jabatan" => $jabatan,

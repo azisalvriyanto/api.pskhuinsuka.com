@@ -5,9 +5,9 @@ class JPendapat extends CI_Controller {
     public function daftar()
 		{
 			$method = $_SERVER["REQUEST_METHOD"];
-        if ($method === "GET") {
-          $response = $this->M_JPendapat->daftar();
-					json_output(200, $response);
+      if ($method === "GET") {
+				$response = $this->M_JPendapat->daftar();
+				json_output(200, $response);
 			} else {
 				json_output(200, array("status" => 400, "keterangan" => "Bad request."));
 			}

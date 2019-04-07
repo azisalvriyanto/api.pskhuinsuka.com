@@ -11,6 +11,7 @@ $route["otentikasi/masuk"]  = "Otentikasi/masuk";
 $route["otentikasi/keluar"] = "Otentikasi/keluar";
 
 $route["organisasi"]                = "Organisasi/index";
+$route["organisasi/logo"]           = "Organisasi/logo";
 $route["organisasi/perbarui"]       = "Organisasi/perbarui";
 $route["organisasi/(:num)"]         = "Organisasi/lihat/$1";
 

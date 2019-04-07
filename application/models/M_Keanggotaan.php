@@ -179,6 +179,9 @@ class M_Keanggotaan extends CI_Model {
             )
         );
         if (!empty($query)) {
+            $path = "../pskhuinsuka.com/assets/gambar/keanggotaan";
+            @rename($path."/".$username_lama.".png", $path."/".$username_baru.".png");
+
             return array(
                 "status" => 200,
                 "keterangan" => "Username berhasil diperbarui."

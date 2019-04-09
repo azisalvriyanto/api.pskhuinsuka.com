@@ -18,4 +18,26 @@ class M_Periode extends CI_Model {
             );
         }
     }
+
+    public function lihat($periode)
+    {
+        $query = $this->db->select("*")->from("periode")->where("periode_id", $periode)->get();
+        if ($query->num_rows() > 0) {
+            $query  = $query->row();
+
+            return array(
+                "status" => 200,
+                "keterangan" => array(
+                    "id" => $query->periode_id,
+                    "keterangan" => $query->periode_keterangan
+                )
+            );
+        }
+        else {
+            return array(
+                "status" => 204,
+                "keterangan" => "Galeri tidak ditemukan."
+            );
+        }
+    }
 }

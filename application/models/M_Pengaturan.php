@@ -99,7 +99,7 @@ class M_Pengaturan extends CI_Model {
                 if ($this->db->trans_status() === TRUE) {
                     $this->db->trans_commit();
                     $path = "../pskhuinsuka.com/assets/gambar/organisasi";
-                    @copy($path."/logo_".$periode_dahulu["keterangan"][count($periode_dahulu["keterangan"])-1]["periode_id"].".png", $path."/logo_".$periode_sekarang["keterangan"][count($periode_sekarang["keterangan"])-1]["periode_id"].".png");
+                    @rename($path."/".$periode_dahulu["keterangan"][count($periode_dahulu["keterangan"])-1]["periode_id"]."_logo.png", $path."/".$periode_sekarang["keterangan"][count($periode_sekarang["keterangan"])-1]["periode_id"]."_logo.png");
 
                     return array(
                         "status" => 200,

@@ -134,13 +134,14 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 $autoload["model"] = array(
-    "M_Periode",
     "M_Organisasi",
-    "M_Divisi",
-    "M_Keanggotaan",
-    "M_JPendapat",
     "M_Otentikasi",
+    "M_Keanggotaan",
+    "M_Divisi",
+    "M_JPendapat",
+    "M_Keuangan",
     "M_Artikel",
+    "M_Berita",
     "M_Galeri",
     "M_Pengaturan"
 );

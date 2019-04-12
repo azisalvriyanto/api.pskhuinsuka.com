@@ -12,7 +12,7 @@ class Pengaturan extends CI_Controller {
 		$method = $_SERVER["REQUEST_METHOD"];
         if (
 			$method === "GET"
-			&& !empty($periode) && is_numeric($periode)
+			&& !empty($periode) && is_string($periode)
 		) {
             $response   = $this->M_Pengaturan->hapus($periode);
 
@@ -28,6 +28,7 @@ class Pengaturan extends CI_Controller {
 		$method = $_SERVER["REQUEST_METHOD"];
         if (
 			$method === "POST"
+			&& !empty($this->input->post("periode_sekarang")) && is_string($this->input->post("periode_sekarang")) === TRUE
 			&& !empty($this->input->post("tahun_awal")) && is_numeric($this->input->post("tahun_awal")) === TRUE
 			&& !empty($this->input->post("tahun_akhir")) && is_numeric($this->input->post("tahun_akhir")) === TRUE
 			&& !empty($this->input->post("username")) && is_string($this->input->post("username")) === TRUE
@@ -35,9 +36,10 @@ class Pengaturan extends CI_Controller {
 			&& !empty($this->input->post("nama")) && is_string($this->input->post("nama")) === TRUE
 			&& !empty($this->input->post("email")) && is_string($this->input->post("email")) === TRUE
 		) {
-            $periode    = $this->input->post("tahun_awal")."-".$this->input->post("tahun_akhir");
-            $response   = $this->M_Pengaturan->renew(
-                $periode,
+            $periode_baru	= $this->input->post("tahun_awal")."-".$this->input->post("tahun_akhir");
+            $response   	= $this->M_Pengaturan->renew(
+				@str_replace("/", "-", $this->input->post("periode_sekarang")),
+                $periode_baru,
                 $this->input->post("username"),
                 md5($this->input->post("password")),
                 $this->input->post("nama"),

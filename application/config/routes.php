@@ -13,7 +13,7 @@ $route["otentikasi/keluar"] = "Otentikasi/keluar";
 $route["organisasi"]                = "Organisasi/index";
 $route["organisasi/logo"]           = "Organisasi/logo";
 $route["organisasi/perbarui"]       = "Organisasi/perbarui";
-$route["organisasi/(:num)"]         = "Organisasi/lihat/$1";
+$route["organisasi/(:any)"]         = "Organisasi/lihat/$1";
 
 $route["keanggotaan"]               = "Keanggotaan/index";
 $route["keanggotaan/tambah"]        = "Keanggotaan/tambah";
@@ -22,13 +22,24 @@ $route["keanggotaan/username"]      = "Keanggotaan/username";
 $route["keanggotaan/password"]      = "Keanggotaan/password";
 $route["keanggotaan/hapus"]         = "Keanggotaan/index";
 $route["keanggotaan/hapus/(:any)"]  = "Keanggotaan/hapus/$1";
-$route["keanggotaan/(:num)"]        = "Keanggotaan/daftar/$1";
-$route["keanggotaan/(:num)/(:any)"] = "Keanggotaan/lihat/$1/$2";
+$route["keanggotaan/foto"]          = "Keanggotaan/foto";
+$route["keanggotaan/(:any)"]        = "Keanggotaan/daftar/$1";
+$route["keanggotaan/(:any)/(:any)"] = "Keanggotaan/lihat/$1/$2";
 
 $route["divisi"]                = "Divisi/daftar";
 $route["divisi/jabatan"]        = "Divisi/index";
-$route["divisi/jabatan/(:any)"] = "Divisi/jabatan/$1";
-$route["divisi/(:any)"]         = "Divisi/lihat/$1";
+$route["divisi/jabatan/(:num)"] = "Divisi/jabatan/$1";
+$route["divisi/(:num)"]         = "Divisi/lihat/$1";
+
+$route["keuangan"]                  = "Keuangan/index";
+$route["keuangan/bulan/(:any)"]     = "Keuangan/bulan_daftar/$1";
+$route["keuangan/tambah"]           = "Keuangan/tambah";
+$route["keuangan/perbarui"]         = "Keuangan/perbarui";
+$route["keuangan/hapus"]            = "Keuangan/index";
+$route["keuangan/hapus/(:any)"]     = "Keuangan/hapus/$1";
+$route["keuangan/lihat/(:num)"]     = "Keuangan/lihat/$1";
+$route["keuangan/(:any)"]           = "Keuangan/daftar/$1";
+$route["keuangan/(:any)/(:num)"]    = "Keuangan/daftar/$1/$2";
 
 $route["jpendapat"]         = "JPendapat/daftar";
 $route["jpendapat/simpan"]  = "JPendapat/simpan";
@@ -37,10 +48,14 @@ $route["artikel"]               = "Artikel/index";
 $route["artikel/tambah"]        = "Artikel/tambah";
 $route["artikel/hapus/(:num)"]  = "Artikel/hapus/$1";
 
+$route["berita"]               = "Berita/index";
+$route["berita/tambah"]        = "Berita/tambah";
+$route["berita/hapus/(:num)"]  = "Berita/hapus/$1";
+
 $route["galeri"]        = "Galeri/index";
 $route["galeri/simpan"] = "Galeri/simpan";
-$route["galeri/(:num)"] = "Galeri/lihat/$1";
+$route["galeri/(:any)"] = "Galeri/lihat/$1";
 
 $route["pengaturan"] = "Pengaturan/index";
 $route["pengaturan/renew"] = "Pengaturan/renew";
-$route["pengaturan/hapus/(:num)"] = "Pengaturan/hapus/$1";
+$route["pengaturan/hapus/(:any)"] = "Pengaturan/hapus/$1";

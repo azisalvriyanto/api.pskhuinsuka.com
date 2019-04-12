@@ -87,6 +87,7 @@ class M_Keanggotaan extends CI_Model {
             array(
                 "akun_keterangan" => $keterangan,
                 "akun_username" => $username,
+                "akun_periode" => $periode,
                 "akun_password" => $password
             )
         );

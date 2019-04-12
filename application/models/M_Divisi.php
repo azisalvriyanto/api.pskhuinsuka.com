@@ -43,9 +43,9 @@ class M_Divisi extends CI_Model {
 
     public function jabatan($divisi)
     {
-        $query = $this->db->select("*")->from("jabatan_x")->where("jabatan_x_divisi", $divisi)
-        ->join("divisi", "divisi.divisi_id=jabatan_x.jabatan_x_divisi")
-        ->join("jabatan", "jabatan.jabatan_id=jabatan_x.jabatan_x_jabatan")
+        $query = $this->db->select("*")->from("divisi_relasi")->where("divisi_relasi_divisi", $divisi)
+        ->join("divisi", "divisi.divisi_id=divisi_relasi.divisi_relasi_divisi")
+        ->join("jabatan", "jabatan.jabatan_id=divisi_relasi.divisi_relasi_jabatan")
         ->get();
         if ($query->num_rows() > 0) {
             return array(

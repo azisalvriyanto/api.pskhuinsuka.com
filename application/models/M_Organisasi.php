@@ -2,17 +2,31 @@
 defined("BASEPATH") OR exit("No direct script access allowed");
 
 class M_Organisasi extends CI_Model {
+    public function daftar_periode()
+    {
+        $periode = $this->db->select("organisasi_periode")->from("organisasi")->get();
+        if ($periode->num_rows() > 0) {
+            return array(
+                "status" => 200,
+                "keterangan" => json_decode(json_encode($periode->result()), TRUE)
+            );
+        }
+        else {
+            return array(
+                "status" => 204,
+                "keterangan" => "Daftar periode tidak ditemukan."
+            );
+        }
+    }
+
     public function lihat($periode)
     {
-        $query = $this->db->select("periode_keterangan, organisasi.*")->from("organisasi")
-        ->join("periode", "organisasi.organisasi_periode=periode.periode_id")
-        ->where("organisasi_periode", $periode)
-        ->get();
+        $query = $this->db->select("*")->from("organisasi")->where("organisasi_periode", $periode)->get();
         if ($query->num_rows() > 0) {
             $query = $query->row();
 
-            if (@is_file("../pskhuinsuka.com/assets/gambar/organisasi/".$query->periode_keterangan."_logo.png")) {
-                $logo	= "assets/gambar/organisasi/".$query->periode_keterangan."_logo.png";
+            if (@is_file("../pskhuinsuka.com/assets/gambar/organisasi/".$query->organisasi_periode."_logo.png")) {
+                $logo	= "assets/gambar/organisasi/".$query->organisasi_periode."_logo.png";
             } else {
                 $logo	= "assets/gambar/organisasi/_standar_logo.png";
             }
@@ -22,7 +36,7 @@ class M_Organisasi extends CI_Model {
                 "keterangan" => array(
                     "periode" => $query->organisasi_periode,
                     "logo" => $logo,
-                    "nama_lengkap" => $query->organisasi_nama_lengkap,
+                    "nama_panjang" => $query->organisasi_nama_panjang,
                     "nama_pendek" => $query->organisasi_nama_pendek,
                     "visi" => $query->organisasi_visi,
                     "misi" => $query->organisasi_misi,
@@ -52,7 +66,7 @@ class M_Organisasi extends CI_Model {
 
     public function perbarui(
         $periode,
-        $nama_lengkap,
+        $nama_panjang,
         $nama_pendek,
         $visi,
         $misi,
@@ -70,7 +84,7 @@ class M_Organisasi extends CI_Model {
     ) {
         $query = $this->db->where("organisasi_periode", $periode)->update("organisasi",
             array(
-                "organisasi_nama_lengkap" => $nama_lengkap,
+                "organisasi_nama_panjang" => $nama_panjang,
                 "organisasi_nama_pendek" => $nama_pendek,
                 "organisasi_visi" => $visi,
                 "organisasi_misi" => $misi,

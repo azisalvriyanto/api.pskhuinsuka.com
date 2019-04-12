@@ -12,7 +12,7 @@ class Keanggotaan extends CI_Controller {
 		$method = $_SERVER["REQUEST_METHOD"];
         if (
 			$method === "GET"
-			&& !empty($periode) && is_numeric($periode) === TRUE
+			&& !empty($periode) && is_string($periode) === TRUE
 		) {
 			$response = $this->M_Keanggotaan->daftar($periode);
 			json_output(200, $response);
@@ -26,7 +26,7 @@ class Keanggotaan extends CI_Controller {
 		$method	 	= $_SERVER["REQUEST_METHOD"];
         if (
 			$method === "GET"
-			&& !empty($periode) && is_numeric($periode) === TRUE
+			&& !empty($periode) && is_string($periode) === TRUE
 			&& !empty($username) && is_string($username) === TRUE
 		) {
 			$response = $this->M_Keanggotaan->lihat($username);
@@ -41,8 +41,8 @@ class Keanggotaan extends CI_Controller {
         $method = $_SERVER["REQUEST_METHOD"];
         if (
 			$method === "POST"
-			&& !empty($this->input->post("keterangan")) && is_numeric($this->input->post("keterangan")) === TRUE
-			&& !empty($this->input->post("periode")) && is_numeric($this->input->post("periode")) === TRUE
+			&& is_numeric($this->input->post("keterangan")) === TRUE
+			&& !empty($this->input->post("periode")) && is_string($this->input->post("periode")) === TRUE
 			&& !empty($this->input->post("nama")) && is_string($this->input->post("nama")) === TRUE
 			&& !empty($this->input->post("username")) && is_string($this->input->post("username")) === TRUE
 			&& !empty($this->input->post("password")) && is_string($this->input->post("password")) === TRUE
@@ -75,7 +75,7 @@ class Keanggotaan extends CI_Controller {
         if (
 			$method === "POST"
 			&& is_numeric($this->input->post("keterangan")) === TRUE
-			&& !empty($this->input->post("periode")) && is_numeric($this->input->post("periode")) === TRUE
+			&& !empty($this->input->post("periode")) && is_string($this->input->post("periode")) === TRUE
 			&& !empty($this->input->post("username")) && is_string($this->input->post("username")) === TRUE
 			&& !empty($this->input->post("nama")) && is_string($this->input->post("nama")) === TRUE
 			&& !empty($this->input->post("divisi")) && is_numeric($this->input->post("divisi")) === TRUE

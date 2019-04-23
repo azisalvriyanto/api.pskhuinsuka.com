@@ -44,6 +44,21 @@ $route["keuangan/(:any)/(:num)"]    = "Keuangan/daftar/$1/$2";
 $route["jpendapat"]         = "JPendapat/daftar";
 $route["jpendapat/simpan"]  = "JPendapat/simpan";
 
+$route["kegiatan"]               = "Kegiatan/index";
+$route["kegiatan/tambah"]        = "Kegiatan/tambah";
+$route["kegiatan/perbarui"]      = "Kegiatan/perbarui";
+$route["kegiatan/hapus"]         = "Kegiatan/index";
+$route["kegiatan/hapus/(:any)"]  = "Kegiatan/hapus/$1";
+$route["kegiatan/(:any)"]        = "Kegiatan/daftar/$1";
+$route["kegiatan/(:any)/(:num)"] = "Kegiatan/lihat/$1/$2";
+
+$route["berkas"]               = "Berkas/daftar";
+$route["berkas/tambah"]        = "Berkas/tambah";
+$route["berkas/perbarui"]      = "Berkas/perbarui";
+$route["berkas/hapus"]         = "Berkas/index";
+$route["berkas/hapus/(:any)"]  = "Berkas/hapus/$1";
+$route["berkas/(:num)"]        = "Berkas/lihat/$1";
+
 $route["artikel"]               = "Artikel/index";
 $route["artikel/tambah"]        = "Artikel/tambah";
 $route["artikel/hapus/(:num)"]  = "Artikel/hapus/$1";

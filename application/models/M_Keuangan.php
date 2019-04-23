@@ -31,7 +31,7 @@ class M_Keuangan extends CI_Model {
                     "keterangan" => array(
                         "id" => $query->keuangan_id,
                         "periode" => $query->keuangan_periode,
-                        "tanggal" => $query->keuangan_tanggal,
+                        "tanggal" => date("d/m/Y", strtotime($query->keuangan_tanggal)),
                         "judul" => $query->keuangan_judul,
                         "jumlah" => $query->keuangan_jumlah,
                         "keterangan" => $query->keuangan_keterangan,
@@ -50,10 +50,12 @@ class M_Keuangan extends CI_Model {
             $query = $this->db->select("*")->from("keuangan")
             ->where("keuangan_periode", $periode)
             ->where("MONTH(keuangan_tanggal)", $bulan)
+            ->order_by("keuangan_tanggal","ASC")
             ->get();
         } else {
             $query = $this->db->select("*")->from("keuangan")
             ->where("keuangan_periode", $periode)
+            ->order_by("keuangan_tanggal","ASC")
             ->get();
         }
 

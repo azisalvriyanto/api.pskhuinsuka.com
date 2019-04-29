@@ -6,7 +6,8 @@ class M_Artikel extends CI_Model {
         $keterangan,
 		$penerbit,
 		$judul,
-		$isi
+		$isi,
+		$gambar
     ) {
         $query = $this->db->insert("artikel",
             array(
@@ -17,6 +18,22 @@ class M_Artikel extends CI_Model {
             )
         );
         if (!empty($query)) {
+            if(!empty($gambar) && !empty($gambar["name"])) {
+                $config["upload_path"] = "../pskhuinsuka.com/assets/artikel";
+                $config["allowed_types"] = "jpg|jpeg|png";
+                $config["encrypt_name"] = TRUE;
+                $this->load->library("upload", $config);
+                if (!$this->upload->do_upload("gambar")) {
+                    return array(
+                        "status" => 403,
+                        "keterangan" => @str_replace("<p>", "", @str_replace("</p>", "", $this->upload->display_errors()))
+                    );
+                } else {
+                    $data       = $this->upload->data();
+                    @rename($config["upload_path"]."/".$data["file_name"], $config["upload_path"]."/".$this->db->insert_id().".png");
+                }
+            }
+
             return array(
                 "status" => 200,
                 "keterangan" => array(
@@ -36,7 +53,8 @@ class M_Artikel extends CI_Model {
         $id,
         $keterangan,
 		$judul,
-		$isi
+		$isi,
+		$gambar
     ) {
         $query = $this->db->where("artikel_id", $id)->update("artikel",
             array(
@@ -46,6 +64,22 @@ class M_Artikel extends CI_Model {
             )
         );
         if (!empty($query)) {
+            if(!empty($gambar) && !empty($gambar["name"])) {
+                $config["upload_path"] = "../pskhuinsuka.com/assets/artikel";
+                $config["allowed_types"] = "jpg|jpeg|png";
+                $config["encrypt_name"] = TRUE;
+                $this->load->library("upload", $config);
+                if (!$this->upload->do_upload("gambar")) {
+                    return array(
+                        "status" => 403,
+                        "keterangan" => @str_replace("<p>", "", @str_replace("</p>", "", $this->upload->display_errors()))
+                    );
+                } else {
+                    $data       = $this->upload->data();
+                    @rename($config["upload_path"]."/".$data["file_name"], $config["upload_path"]."/".$id.".png");
+                }
+            }
+
             return array(
                 "status" => 200,
                 "keterangan" => "Artikel berhasil diperbarui."
@@ -63,6 +97,8 @@ class M_Artikel extends CI_Model {
     {
         $query = $this->db->where("artikel_id", $id)->delete("artikel");
         if (!empty($query)) {
+            @unlink("../pskhuinsuka.com/assets/artikel/".$id.".png");
+
             return array(
                 "status" => 200,
                 "keterangan" => "Artikel berhasil dihapus."

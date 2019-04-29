@@ -32,14 +32,18 @@ class M_Pengaturan extends CI_Model {
         $telepon,
         $motto
     ) {
+        
+        $this->db->trans_begin();
+        $this->db->where("organisasi_pendaftaran", 1)->update("organisasi", array("organisasi_pendaftaran" => 0));
+
         $sekarang_organisasi    = $this->M_Organisasi->lihat($periode_sekarang);
         $sekarang_organisasi    = $sekarang_organisasi["keterangan"];
         $sekarang_galeri        = $this->M_Galeri->lihat($periode_sekarang);
 
-        $this->db->trans_begin();
         $this->db->insert("organisasi",
             array(
                 "organisasi_periode" => $periode_baru,
+                "organisasi_pendaftaran" => 0,
                 "organisasi_nama_panjang" => $sekarang_organisasi["nama_panjang"],
                 "organisasi_nama_pendek" => $sekarang_organisasi["nama_pendek"],
                 "organisasi_visi" => $sekarang_organisasi["visi"],
@@ -108,6 +112,28 @@ class M_Pengaturan extends CI_Model {
             return array(
                 "status" => 204,
                 "keterangan" => "Kepengurusan gagal diganti."
+            );
+        }
+    }
+
+    public function pendaftaran($periode, $status)
+    {
+        $query = $this->db->where("organisasi_periode", $periode)->update("organisasi",
+            array(
+                "organisasi_pendaftaran" => $status
+            )
+        );
+
+        if ($query) {
+            return array(
+                "status" => 200,
+                "keterangan" => "Status pendaftaran berhasil diperbarui."
+            );
+        }
+        else {
+            return array(
+                "status" => 204,
+                "keterangan" => "Status pendaftaran gagal diperbarui."
             );
         }
     }

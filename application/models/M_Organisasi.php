@@ -66,6 +66,7 @@ class M_Organisasi extends CI_Model {
 
     public function perbarui(
         $periode,
+        $logo,
         $nama_panjang,
         $nama_pendek,
         $visi,
@@ -102,6 +103,23 @@ class M_Organisasi extends CI_Model {
             )
         );
         if (!empty($query)) {
+            if(!empty($logo) && !empty($logo["name"])) {
+                $config["upload_path"] = "../pskhuinsuka.com/assets/gambar/organisasi";
+                $config["allowed_types"] = "jpg|jpeg|png";
+                $config["encrypt_name"] = TRUE;
+                $this->load->library("upload", $config);
+                if (!$this->upload->do_upload("logo")) {
+                    return array(
+                        "status" => 403,
+                        "keterangan" => @str_replace("<p>", "", @str_replace("</p>", "", $this->upload->display_errors()))
+                    );
+                } else {
+                    $data       = $this->upload->data();
+                    @rename($config["upload_path"]."/".$data["file_name"], $config["upload_path"]."/".$periode."_logo.png");
+
+                }
+            }
+
             return array(
                 "status" => 200,
                 "keterangan" => "Profil organisasi berhasil diperbarui."

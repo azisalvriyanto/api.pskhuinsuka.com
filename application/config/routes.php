@@ -6,12 +6,13 @@ $route["404_override"]			= "Galat/_404";
 $route["translate_uri_dashes"]	= FALSE;
 
 //API
+$route["pesan"] = "Otentikasi/pesan";
+
 $route["otentikasi"]        = "Otentikasi/index";
 $route["otentikasi/masuk"]  = "Otentikasi/masuk";
 $route["otentikasi/keluar"] = "Otentikasi/keluar";
 
 $route["organisasi"]                = "Organisasi/index";
-$route["organisasi/logo"]           = "Organisasi/logo";
 $route["organisasi/perbarui"]       = "Organisasi/perbarui";
 $route["organisasi/(:any)"]         = "Organisasi/lihat/$1";
 
@@ -22,7 +23,6 @@ $route["keanggotaan/username"]      = "Keanggotaan/username";
 $route["keanggotaan/password"]      = "Keanggotaan/password";
 $route["keanggotaan/hapus"]         = "Keanggotaan/index";
 $route["keanggotaan/hapus/(:any)"]  = "Keanggotaan/hapus/$1";
-$route["keanggotaan/foto"]          = "Keanggotaan/foto";
 $route["keanggotaan/(:any)"]        = "Keanggotaan/daftar/$1";
 $route["keanggotaan/(:any)/(:any)"] = "Keanggotaan/lihat/$1/$2";
 
@@ -71,6 +71,7 @@ $route["galeri"]        = "Galeri/index";
 $route["galeri/simpan"] = "Galeri/simpan";
 $route["galeri/(:any)"] = "Galeri/lihat/$1";
 
-$route["pengaturan"] = "Pengaturan/index";
-$route["pengaturan/renew"] = "Pengaturan/renew";
-$route["pengaturan/hapus/(:any)"] = "Pengaturan/hapus/$1";
+$route["pengaturan"]                = "Pengaturan/index";
+$route["pengaturan/pendaftaran"]    = "Pengaturan/pendaftaran";
+$route["pengaturan/renew"]          = "Pengaturan/renew";
+$route["pengaturan/hapus/(:any)"]   = "Pengaturan/hapus/$1";

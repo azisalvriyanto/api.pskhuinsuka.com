@@ -27,11 +27,13 @@ class Organisasi extends CI_Controller {
         if (
             $method === "POST"
             && !empty($this->input->post("periode")) && is_string($this->input->post("periode"))
+			&& !empty($_FILES["logo"])
 			&& !empty($this->input->post("nama_panjang")) && is_string($this->input->post("nama_panjang")) === TRUE
 			&& !empty($this->input->post("nama_pendek")) && is_string($this->input->post("nama_pendek")) === TRUE
         ) {
             $response	= $this->M_Organisasi->perbarui(
                 $this->input->post("periode"),
+                $_FILES["logo"],
                 $this->input->post("nama_panjang"),
                 $this->input->post("nama_pendek"),
                 $this->input->post("visi"),
@@ -48,39 +50,6 @@ class Organisasi extends CI_Controller {
                 $this->input->post("youtube"),
                 $this->input->post("peta")
             );
-
-            json_output(200, $response);
-		} else {
-			json_output(200, array("status" => 400, "keterangan" => "Bad Request."));
-		}
-    }
-
-    public function logo()
-	{
-        $method = $_SERVER["REQUEST_METHOD"];
-        if (
-            $method === "POST"
-            && !empty($this->input->post("logo_periode")) && is_string($this->input->post("logo_periode"))
-            && !empty($_FILES["logo_file"])
-        ) {
-            $config["upload_path"] = "../pskhuinsuka.com/assets/gambar/organisasi";
-            $config["allowed_types"] = "jpg|jpeg|png";
-            $config["encrypt_name"] = TRUE;
-            $this->load->library("upload", $config);
-            if (!$this->upload->do_upload("logo_file")) {
-                $response = array(
-                    "status" => 403,
-                    "keterangan" => @str_replace("<p>", "", @str_replace("</p>", "", $this->upload->display_errors()))
-                );
-            } else {
-                $data       = $this->upload->data();
-                @rename($config["upload_path"]."/".$data["file_name"], $config["upload_path"]."/".$this->input->post("logo_periode")."_logo.png");
-
-                $response = array(
-                    "status" => 200,
-                    "keterangan" => "Logo berhasil diperbarui."
-                );
-            }
 
             json_output(200, $response);
 		} else {

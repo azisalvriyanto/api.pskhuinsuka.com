@@ -23,6 +23,24 @@ class Pengaturan extends CI_Controller {
 		}
 	}
 
+	public function pendaftaran() {
+		$method = $_SERVER["REQUEST_METHOD"];
+        if (
+			$method === "POST"
+			&& !empty($this->input->post("periode")) && is_string($this->input->post("periode"))
+			&& is_numeric($this->input->post("pendaftaran")) === TRUE
+		) {
+            $response   = $this->M_Pengaturan->pendaftaran($this->input->post("periode"), $this->input->post("pendaftaran"));
+
+			json_output(200, $response);
+
+			json_output(200, array("status" => 200, "keterangan" => "Berhasil diperbarui"));
+		}
+		else {
+			json_output(200, array("status" => 400, "keterangan" => "Bad Request."));
+		}
+	}
+
     public function renew()
 	{
 		$method = $_SERVER["REQUEST_METHOD"];
@@ -45,8 +63,7 @@ class Pengaturan extends CI_Controller {
                 $this->input->post("nama"),
                 $this->input->post("email"),
                 $this->input->post("telepon"),
-                $this->input->post("motto"),
-
+                $this->input->post("motto")
             );
 
 			json_output(200, $response);

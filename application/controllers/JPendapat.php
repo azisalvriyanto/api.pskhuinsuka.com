@@ -19,12 +19,15 @@ class JPendapat extends CI_Controller {
         if ($method === "POST") {
 					$response = $this->M_JPendapat->perbarui(
 						$this->input->post("1_nama"),
+						$_FILES["1_foto"],
 						$this->input->post("1_jabatan"),
 						$this->input->post("1_pendapat"),
 						$this->input->post("2_nama"),
+						$_FILES["2_foto"],
 						$this->input->post("2_jabatan"),
 						$this->input->post("2_pendapat"),
 						$this->input->post("3_nama"),
+						$_FILES["3_foto"],
 						$this->input->post("3_jabatan"),
 						$this->input->post("3_pendapat"),
 					);

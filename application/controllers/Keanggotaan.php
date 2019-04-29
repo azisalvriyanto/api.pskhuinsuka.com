@@ -43,18 +43,25 @@ class Keanggotaan extends CI_Controller {
 			$method === "POST"
 			&& is_numeric($this->input->post("keterangan")) === TRUE
 			&& !empty($this->input->post("periode")) && is_string($this->input->post("periode")) === TRUE
-			&& !empty($this->input->post("nama")) && is_string($this->input->post("nama")) === TRUE
 			&& !empty($this->input->post("username")) && is_string($this->input->post("username")) === TRUE
 			&& !empty($this->input->post("password")) && is_string($this->input->post("password")) === TRUE
+			&& !empty($this->input->post("nama")) && is_string($this->input->post("nama")) === TRUE
 			&& !empty($this->input->post("divisi")) && is_numeric($this->input->post("divisi")) === TRUE
 			&& !empty($this->input->post("jabatan")) && is_numeric($this->input->post("jabatan")) === TRUE
 			&& !empty($this->input->post("email")) && is_string($this->input->post("email")) === TRUE
 		) {
+			if (!empty($_FILES["foto"])) {
+				$foto = $_FILES["foto"];
+			} else {
+				$foto = "";
+			}
+
 			$response = $this->M_Keanggotaan->tambah(
 				$this->input->post("keterangan"),
 				$this->input->post("periode"),
 				$this->input->post("username"),
 				md5($this->input->post("password")),
+                $foto,
 				$this->input->post("nama"),
 				$this->input->post("divisi"),
 				$this->input->post("jabatan"),
@@ -77,6 +84,7 @@ class Keanggotaan extends CI_Controller {
 			&& is_numeric($this->input->post("keterangan")) === TRUE
 			&& !empty($this->input->post("periode")) && is_string($this->input->post("periode")) === TRUE
 			&& !empty($this->input->post("username")) && is_string($this->input->post("username")) === TRUE
+			&& !empty($_FILES["foto"])
 			&& !empty($this->input->post("nama")) && is_string($this->input->post("nama")) === TRUE
 			&& !empty($this->input->post("divisi")) && is_numeric($this->input->post("divisi")) === TRUE
 			&& !empty($this->input->post("jabatan")) && is_numeric($this->input->post("jabatan")) === TRUE
@@ -86,6 +94,7 @@ class Keanggotaan extends CI_Controller {
 				$this->input->post("keterangan"),
 				$this->input->post("periode"),
 				$this->input->post("username"),
+                $_FILES["foto"],
 				$this->input->post("nama"),
 				$this->input->post("divisi"),
 				$this->input->post("jabatan"),
@@ -146,39 +155,6 @@ class Keanggotaan extends CI_Controller {
 				md5($this->input->post("password"))
 			);
 			json_output(200, $response);
-		} else {
-			json_output(200, array("status" => 400, "keterangan" => "Bad Request."));
-		}
-    }
-	
-	public function foto()
-	{
-        $method = $_SERVER["REQUEST_METHOD"];
-        if (
-            $method === "POST"
-            && !empty($this->input->post("foto_username")) && is_string($this->input->post("foto_username"))
-            && !empty($_FILES["foto_file"])
-        ) {
-            $config["upload_path"] = "../pskhuinsuka.com/assets/gambar/keanggotaan";
-            $config["allowed_types"] = "jpg|jpeg|png";
-            $config["encrypt_name"] = TRUE;
-            $this->load->library("upload", $config);
-            if (!$this->upload->do_upload("foto_file")) {
-                $response = array(
-                    "status" => 403,
-                    "keterangan" => @str_replace("<p>", "", @str_replace("</p>", "", $this->upload->display_errors()))
-                );
-            } else {
-                $data = $this->upload->data();
-                @rename($config["upload_path"]."/".$data["file_name"], $config["upload_path"]."/".$this->input->post("foto_username").".png");
-
-                $response = array(
-                    "status" => 200,
-                    "keterangan" => "Foto profil berhasil diperbarui."
-                );
-            }
-
-            json_output(200, $response);
 		} else {
 			json_output(200, array("status" => 400, "keterangan" => "Bad Request."));
 		}

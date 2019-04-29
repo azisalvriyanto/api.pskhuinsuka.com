@@ -63,6 +63,7 @@ class M_Keanggotaan extends CI_Model {
         $periode,
         $username,
         $password,
+        $foto,
         $nama,
         $divisi,
         $jabatan,
@@ -86,14 +87,30 @@ class M_Keanggotaan extends CI_Model {
         $this->db->insert("akun",
             array(
                 "akun_keterangan" => $keterangan,
-                "akun_username" => $username,
                 "akun_periode" => $periode,
+                "akun_username" => $username,
                 "akun_password" => $password
             )
         );
 
         if ($this->db->trans_status() === TRUE) {
             $this->db->trans_commit();
+
+            if(!empty($foto) && !empty($foto["name"])) {
+                $config["upload_path"] = "../pskhuinsuka.com/assets/gambar/keanggotaan";
+                $config["allowed_types"] = "jpg|jpeg|png";
+                $config["encrypt_name"] = TRUE;
+                $this->load->library("upload", $config);
+                if (!$this->upload->do_upload("foto")) {
+                    return array(
+                        "status" => 403,
+                        "keterangan" => @str_replace("<p>", "", @str_replace("</p>", "", $this->upload->display_errors()))
+                    );
+                } else {
+                    $data = $this->upload->data();
+                    @rename($config["upload_path"]."/".$data["file_name"], $config["upload_path"]."/".$username.".png");
+                }
+            }
 
             return array(
                 "status" => 200,
@@ -113,6 +130,7 @@ class M_Keanggotaan extends CI_Model {
         $keterangan,
         $periode,
         $username,
+        $foto,
         $nama,
         $divisi,
         $jabatan,
@@ -141,6 +159,22 @@ class M_Keanggotaan extends CI_Model {
         if ($this->db->trans_status() === TRUE) {
             $this->db->trans_commit();
 
+            if(!empty($foto) && !empty($foto["name"])) {
+                $config["upload_path"] = "../pskhuinsuka.com/assets/gambar/keanggotaan";
+                $config["allowed_types"] = "jpg|jpeg|png";
+                $config["encrypt_name"] = TRUE;
+                $this->load->library("upload", $config);
+                if (!$this->upload->do_upload("foto")) {
+                    return array(
+                        "status" => 403,
+                        "keterangan" => @str_replace("<p>", "", @str_replace("</p>", "", $this->upload->display_errors()))
+                    );
+                } else {
+                    $data = $this->upload->data();
+                    @rename($config["upload_path"]."/".$data["file_name"], $config["upload_path"]."/".$username.".png");
+                }
+            }
+
             return array(
                 "status" => 200,
                 "keterangan" => "Profil berhasil ditambahkan."
@@ -157,8 +191,10 @@ class M_Keanggotaan extends CI_Model {
 
     public function hapus($username)
     {
-        $query = $this->db->where("keanggotaan_username", $username)->delete("keanggotaan");
-        if (!empty($query)) {
+        $query  = $this->db->where("keanggotaan_username", $username)->delete("keanggotaan");
+        if ($query) {
+            @unlink("../pskhuinsuka.com/assets/gambar/keanggotaan/".$username.".png");
+
             return array(
                 "status" => 200,
                 "keterangan" => "Profil berhasil dihapus."

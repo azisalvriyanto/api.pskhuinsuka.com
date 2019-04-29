@@ -20,7 +20,8 @@ class Artikel extends CI_Controller {
 				$this->input->post("keterangan"),
 				$this->input->post("penerbit"),
 				$this->input->post("judul"),
-				$this->input->post("isi")
+				$this->input->post("isi"),
+				$_FILES["gambar"]
 			);
             
             json_output(200, $response);
@@ -37,12 +38,14 @@ class Artikel extends CI_Controller {
 			&& !empty($this->input->post("id")) && is_numeric($this->input->post("id")) === TRUE
 			&& !empty($this->input->post("keterangan")) && is_numeric($this->input->post("keterangan")) === TRUE
 			&& !empty($this->input->post("judul"))
+			&& !empty($_FILES["gambar"])
 		) {
 			$response = $this->M_Artikel->perbarui(
 				$this->input->post("id"),
 				$this->input->post("keterangan"),
 				$this->input->post("judul"),
-				$this->input->post("isi")
+				$this->input->post("isi"),
+				$_FILES["gambar"]
 			);
 
             json_output(200, $response);

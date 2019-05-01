@@ -46,33 +46,33 @@ class Otentikasi extends CI_Controller {
 			$method === "POST"
 			&& !empty($this->input->post("nama")) && is_string($this->input->post("nama"))
             && !empty($this->input->post("email")) && is_string($this->input->post("email"))
-            && !empty($this->input->post("judul")) && is_string($this->input->post("judul"))
-            && !empty($this->input->post("pesan")) && is_string($this->input->post("pesan"))
 		) {
 			$config = [
 				"mailtype"  => "html",
 				"charset"   => "utf-8",
 				"protocol"  => "smtp",
-				"smtp_host" => "ssl://smtp.gmail.com",
-				"smtp_user" => "aalvriyanto@gmail.com",
-				"smtp_pass" => "`al-vri``",
-				"smtp_port" => 465,
-				"crlf"      => "\r\n",
-				"newline"   => "\r\n"
+				"smtp_host" => "mail.msftrailers.co.za",
+				"smtp_user" => "azisalvriyanto@msftrailers.co.za",
+				"smtp_pass" => "`al-vri`",
+				"smtp_port" => 587,
+				"crlf"      => "\r\n"
 			];
 
+			$organisasi = $this->M_Organisasi->lihat($this->M_Organisasi->periode_terakhir()["keterangan"]);
+			if ($organisasi["status"] === 200 && !empty($organisasi["keterangan"]["kontak"]["email"])) {
+				$email = $organisasi["keterangan"]["kontak"]["email"];
+			} else {
+				$email = "admin@pskhuinsuka.com";
+			}
+
 			$this->load->library("email", $config);
+			$this->email->set_newline("\r\n");
 			$this->email->from($this->input->post("email"), $this->input->post("nama"));
-			$this->email->to("sandakala.id@gmail.com");
+			$this->email->to($email);
 			$this->email->subject($this->input->post("judul"));
 			$this->email->message($this->input->post("pesan"));
 
-			$to 		= "aalvriyanto@gmail.com";
-			$headers 	= "From: ".$this->input->post("nama")." <".$this->input->post("email").">";
-			$subject	= $this->input->post("judul");
-			$message	= $this->input->post("pesan");
-
-			if ($this->email->send() || @mail($to, $subject, $message, $headers)) {
+			if ($this->email->send()) {
 				$response = array(
 					"status" => 200,
 					"keterangan" => "Mohon tunggu balasan dari kami."

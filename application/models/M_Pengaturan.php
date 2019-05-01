@@ -6,9 +6,9 @@ class M_Pengaturan extends CI_Model {
     {
         $organisasi = $this->db->where("organisasi_periode", $periode)->delete("organisasi");
         if (!empty($organisasi)) {
-            @unlink("../pskhuinsuka.com/assets/gambar/organisasi/".$periode."_logo.png");
-            @unlink("../pskhuinsuka.com/assets/gambar/organisasi/".$periode."_landscape.png");
-            @unlink("../pskhuinsuka.com/assets/gambar/organisasi/".$periode."_portrait.png");
+            @unlink("../public_html/assets/gambar/organisasi/".$periode."_logo.png");
+            @unlink("../public_html/assets/gambar/organisasi/".$periode."_landscape.png");
+            @unlink("../public_html/assets/gambar/organisasi/".$periode."_portrait.png");
             return array(
                 "status" => 200,
                 "keterangan" => "Profil berhasil dihapus."
@@ -97,7 +97,7 @@ class M_Pengaturan extends CI_Model {
 
         if ($this->db->trans_status() === TRUE) {
             $this->db->trans_commit();
-            $path = "../pskhuinsuka.com/assets/gambar/organisasi";
+            $path = "../public_html/assets/gambar/organisasi";
             @copy($path."/".$periode_sekarang."_logo.png", $path."/".$periode_baru."_logo.png");
             @copy($path."/".$periode_sekarang."_landscape.png", $path."/".$periode_baru."_landscape.png");
             @copy($path."/".$periode_sekarang."_portrait.png", $path."/".$periode_baru."_portrait.png");

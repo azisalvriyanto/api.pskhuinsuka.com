@@ -97,7 +97,7 @@ class M_Keanggotaan extends CI_Model {
             $this->db->trans_commit();
 
             if(!empty($foto) && !empty($foto["name"])) {
-                $config["upload_path"] = "../pskhuinsuka.com/assets/gambar/keanggotaan";
+                $config["upload_path"] = "../public_html/assets/gambar/keanggotaan";
                 $config["allowed_types"] = "jpg|jpeg|png";
                 $config["encrypt_name"] = TRUE;
                 $this->load->library("upload", $config);
@@ -160,7 +160,7 @@ class M_Keanggotaan extends CI_Model {
             $this->db->trans_commit();
 
             if(!empty($foto) && !empty($foto["name"])) {
-                $config["upload_path"] = "../pskhuinsuka.com/assets/gambar/keanggotaan";
+                $config["upload_path"] = "../public_html/assets/gambar/keanggotaan";
                 $config["allowed_types"] = "jpg|jpeg|png";
                 $config["encrypt_name"] = TRUE;
                 $this->load->library("upload", $config);
@@ -193,7 +193,7 @@ class M_Keanggotaan extends CI_Model {
     {
         $query  = $this->db->where("keanggotaan_username", $username)->delete("keanggotaan");
         if ($query) {
-            @unlink("../pskhuinsuka.com/assets/gambar/keanggotaan/".$username.".png");
+            @unlink("../public_html/assets/gambar/keanggotaan/".$username.".png");
 
             return array(
                 "status" => 200,
@@ -216,7 +216,7 @@ class M_Keanggotaan extends CI_Model {
             )
         );
         if (!empty($query)) {
-            $path = "../pskhuinsuka.com/assets/gambar/keanggotaan";
+            $path = "../public_html/assets/gambar/keanggotaan";
             @rename($path."/".$username_lama.".png", $path."/".$username_baru.".png");
 
             return array(

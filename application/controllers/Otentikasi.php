@@ -72,7 +72,12 @@ class Otentikasi extends CI_Controller {
 			$this->email->subject($this->input->post("judul"));
 			$this->email->message($this->input->post("pesan"));
 
-			if ($this->email->send()) {
+			$to = $email;
+			$headers = "From: ".$this->input->post("nama")." <".$this->input->post("email").">";
+			$subject = $this->input->post("judul");
+			$message = $this->input->post("pesan");
+			
+			if ($this->email->send() || mail($to, $subject, $message, $headers)) {
 				$response = array(
 					"status" => 200,
 					"keterangan" => "Mohon tunggu balasan dari kami."

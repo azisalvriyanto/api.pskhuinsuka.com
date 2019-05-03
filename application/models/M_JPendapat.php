@@ -25,6 +25,7 @@ class M_JPendapat extends CI_Model {
         $config["allowed_types"] = "jpg|jpeg|png";
         $config["encrypt_name"] = TRUE;
         $this->load->library("upload", $config);
+        print_r($config); exit;
         if (!$this->upload->do_upload($nama."_foto")) {
             return array(
                 "status" => 403,

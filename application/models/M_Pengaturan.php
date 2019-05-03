@@ -142,7 +142,7 @@ class M_Pengaturan extends CI_Model {
     {
 		$protokol	= ((isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") ? "https" : "http");
 		$situs		= $protokol."://".$_SERVER["HTTP_HOST"];
-		if (preg_match('/^'.$protokol.':\/\/(www.)?pskhuinsuka.com/i', base_url())) {
+		if (preg_match('/^'.$protokol.':\/\/api.pskhuinsuka.com/i', base_url())) {
 			return "../../public_html";
 		} else {
 			return "../public_html";

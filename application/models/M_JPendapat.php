@@ -21,7 +21,7 @@ class M_JPendapat extends CI_Model {
 
     public function unggah($nama)
     {
-        $config["upload_path"] = "../public_html/assets/gambar/jejakpendapat";
+        $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/gambar/jejakpendapat";
         $config["allowed_types"] = "jpg|jpeg|png";
         $config["encrypt_name"] = TRUE;
         $this->load->library("upload", $config);

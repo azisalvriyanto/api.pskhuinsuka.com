@@ -19,7 +19,7 @@ class M_Artikel extends CI_Model {
         );
         if (!empty($query)) {
             if(!empty($gambar) && !empty($gambar["name"])) {
-                $config["upload_path"] = "../public_html/assets/artikel";
+                $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/artikel";
                 $config["allowed_types"] = "jpg|jpeg|png";
                 $config["encrypt_name"] = TRUE;
                 $this->load->library("upload", $config);
@@ -65,7 +65,7 @@ class M_Artikel extends CI_Model {
         );
         if (!empty($query)) {
             if(!empty($gambar) && !empty($gambar["name"])) {
-                $config["upload_path"] = "../public_html/assets/artikel";
+                $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/artikel";
                 $config["allowed_types"] = "jpg|jpeg|png";
                 $config["encrypt_name"] = TRUE;
                 $this->load->library("upload", $config);
@@ -97,7 +97,7 @@ class M_Artikel extends CI_Model {
     {
         $query = $this->db->where("artikel_id", $id)->delete("artikel");
         if (!empty($query)) {
-            @unlink("../public_html/assets/artikel/".$id.".png");
+            @unlink($this->M_Pengaturan->directory()."/assets/artikel/".$id.".png");
 
             return array(
                 "status" => 200,

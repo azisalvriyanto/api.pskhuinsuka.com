@@ -71,7 +71,7 @@ class M_Galeri extends CI_Model {
 
     public function unggah($periode, $nama)
     {
-        $config["upload_path"] = "../public_html/assets/gambar/organisasi";
+        $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/gambar/organisasi";
         $config["allowed_types"] = "jpg|jpeg|png";
         $config["encrypt_name"] = TRUE;
         $this->load->library("upload", $config);

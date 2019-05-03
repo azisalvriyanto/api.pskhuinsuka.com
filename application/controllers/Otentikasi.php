@@ -51,10 +51,10 @@ class Otentikasi extends CI_Controller {
 				"mailtype"  => "html",
 				"charset"   => "utf-8",
 				"protocol"  => "smtp",
-				"smtp_host" => "mail.msftrailers.co.za",
-				"smtp_user" => "azisalvriyanto@msftrailers.co.za",
-				"smtp_pass" => "`al-vri`",
-				"smtp_port" => 587,
+				"smtp_host" => "ssl://smtp.gmail.com",
+				"smtp_user" => "pskhuinsuka@gmail.com",
+				"smtp_pass" => "pskhuinsunankalijaga",
+				"smtp_port" => 465,
 				"crlf"      => "\r\n"
 			];
 

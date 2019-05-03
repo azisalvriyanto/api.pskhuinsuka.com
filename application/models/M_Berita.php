@@ -19,7 +19,7 @@ class M_Berita extends CI_Model {
         );
         if (!empty($query)) {
             if(!empty($gambar) && !empty($gambar["name"])) {
-                $config["upload_path"] = "../public_html/assets/berita";
+                $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/berita";
                 $config["allowed_types"] = "jpg|jpeg|png";
                 $config["encrypt_name"] = TRUE;
                 $this->load->library("upload", $config);
@@ -65,7 +65,7 @@ class M_Berita extends CI_Model {
         );
         if (!empty($query)) {
             if(!empty($gambar) && !empty($gambar["name"])) {
-                $config["upload_path"] = "../public_html/assets/berita";
+                $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/berita";
                 $config["allowed_types"] = "jpg|jpeg|png";
                 $config["encrypt_name"] = TRUE;
                 $this->load->library("upload", $config);
@@ -97,7 +97,7 @@ class M_Berita extends CI_Model {
     {
         $query = $this->db->where("berita_id", $id)->delete("berita");
         if (!empty($query)) {
-            @unlink("../public_html/assets/berita/".$id.".png");
+            @unlink($this->M_Pengaturan->directory()."/assets/berita/".$id.".png");
 
             return array(
                 "status" => 200,

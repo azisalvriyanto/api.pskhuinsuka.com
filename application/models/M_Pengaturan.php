@@ -6,9 +6,9 @@ class M_Pengaturan extends CI_Model {
     {
         $organisasi = $this->db->where("organisasi_periode", $periode)->delete("organisasi");
         if (!empty($organisasi)) {
-            @unlink("../public_html/assets/gambar/organisasi/".$periode."_logo.png");
-            @unlink("../public_html/assets/gambar/organisasi/".$periode."_landscape.png");
-            @unlink("../public_html/assets/gambar/organisasi/".$periode."_portrait.png");
+            @unlink($this->M_Pengaturan->directory()."/assets/gambar/organisasi/".$periode."_logo.png");
+            @unlink($this->M_Pengaturan->directory()."/assets/gambar/organisasi/".$periode."_landscape.png");
+            @unlink($this->M_Pengaturan->directory()."/assets/gambar/organisasi/".$periode."_portrait.png");
             return array(
                 "status" => 200,
                 "keterangan" => "Profil berhasil dihapus."
@@ -97,7 +97,7 @@ class M_Pengaturan extends CI_Model {
 
         if ($this->db->trans_status() === TRUE) {
             $this->db->trans_commit();
-            $path = "../public_html/assets/gambar/organisasi";
+            $path = $this->M_Pengaturan->directory()."/assets/gambar/organisasi";
             @copy($path."/".$periode_sekarang."_logo.png", $path."/".$periode_baru."_logo.png");
             @copy($path."/".$periode_sekarang."_landscape.png", $path."/".$periode_baru."_landscape.png");
             @copy($path."/".$periode_sekarang."_portrait.png", $path."/".$periode_baru."_portrait.png");
@@ -135,6 +135,17 @@ class M_Pengaturan extends CI_Model {
                 "status" => 204,
                 "keterangan" => "Status pendaftaran gagal diperbarui."
             );
+        }
+    }
+
+    public function directory()
+    {
+		$protokol	= ((isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") ? "https" : "http");
+		$situs		= $protokol."://".$_SERVER["HTTP_HOST"];
+		if (preg_match('/^'.$protokol.':\/\/(www.)?pskhuinsuka.com/i', base_url())) {
+			return "../../public_html";
+		} else {
+			return "../public_html";
         }
     }
 }

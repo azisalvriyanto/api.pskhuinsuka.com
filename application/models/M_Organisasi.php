@@ -43,7 +43,7 @@ class M_Organisasi extends CI_Model {
         if ($query->num_rows() > 0) {
             $query = $query->row();
 
-            if (@is_file("../public_html/assets/gambar/organisasi/".$query->organisasi_periode."_logo.png")) {
+            if (@is_file($this->M_Pengaturan->directory()."/assets/gambar/organisasi/".$query->organisasi_periode."_logo.png")) {
                 $logo	= "assets/gambar/organisasi/".$query->organisasi_periode."_logo.png";
             } else {
                 $logo	= "assets/gambar/organisasi/_standar_logo.png";
@@ -122,7 +122,7 @@ class M_Organisasi extends CI_Model {
         );
         if (!empty($query)) {
             if(!empty($logo) && !empty($logo["name"])) {
-                $config["upload_path"] = "../public_html/assets/gambar/organisasi";
+                $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/gambar/organisasi";
                 $config["allowed_types"] = "jpg|jpeg|png";
                 $config["encrypt_name"] = TRUE;
                 $this->load->library("upload", $config);

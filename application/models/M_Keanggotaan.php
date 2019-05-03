@@ -40,7 +40,6 @@ class M_Keanggotaan extends CI_Model {
                     "periode" => $query->keanggotaan_periode,
                     "username" => $query->keanggotaan_username,
                     "nama" => $query->keanggotaan_nama,
-                    "angkatan" => $query->keanggotaan_angkatan,
                     "divisi" => $query->divisi_keterangan,
                     "jabatan" => $query->jabatan_keterangan,
                     "jabatan_x" => $query->keanggotaan_jabatan,
@@ -97,7 +96,7 @@ class M_Keanggotaan extends CI_Model {
             $this->db->trans_commit();
 
             if(!empty($foto) && !empty($foto["name"])) {
-                $config["upload_path"] = "../public_html/assets/gambar/keanggotaan";
+                $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/gambar/keanggotaan";
                 $config["allowed_types"] = "jpg|jpeg|png";
                 $config["encrypt_name"] = TRUE;
                 $this->load->library("upload", $config);
@@ -160,7 +159,7 @@ class M_Keanggotaan extends CI_Model {
             $this->db->trans_commit();
 
             if(!empty($foto) && !empty($foto["name"])) {
-                $config["upload_path"] = "../public_html/assets/gambar/keanggotaan";
+                $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/gambar/keanggotaan";
                 $config["allowed_types"] = "jpg|jpeg|png";
                 $config["encrypt_name"] = TRUE;
                 $this->load->library("upload", $config);
@@ -193,7 +192,7 @@ class M_Keanggotaan extends CI_Model {
     {
         $query  = $this->db->where("keanggotaan_username", $username)->delete("keanggotaan");
         if ($query) {
-            @unlink("../public_html/assets/gambar/keanggotaan/".$username.".png");
+            @unlink($this->M_Pengaturan->directory()."/assets/gambar/keanggotaan/".$username.".png");
 
             return array(
                 "status" => 200,
@@ -216,7 +215,7 @@ class M_Keanggotaan extends CI_Model {
             )
         );
         if (!empty($query)) {
-            $path = "../public_html/assets/gambar/keanggotaan";
+            $path = $this->M_Pengaturan->directory()."/assets/gambar/keanggotaan";
             @rename($path."/".$username_lama.".png", $path."/".$username_baru.".png");
 
             return array(

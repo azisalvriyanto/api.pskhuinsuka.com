@@ -97,7 +97,7 @@ class M_Keanggotaan extends CI_Model {
 
             if(!empty($foto) && !empty($foto["name"])) {
                 $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/gambar/keanggotaan";
-                $config["allowed_types"] = "jpg|jpeg|png";
+                $config["allowed_types"] = "jpg|jpeg|png|JPG|JPEG|PNG";
                 $config["encrypt_name"] = TRUE;
                 $this->load->library("upload", $config);
                 if (!$this->upload->do_upload("foto")) {
@@ -160,7 +160,7 @@ class M_Keanggotaan extends CI_Model {
 
             if(!empty($foto) && !empty($foto["name"])) {
                 $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/gambar/keanggotaan";
-                $config["allowed_types"] = "jpg|jpeg|png";
+                $config["allowed_types"] = "jpg|jpeg|png|JPG|JPEG|PNG";
                 $config["encrypt_name"] = TRUE;
                 $this->load->library("upload", $config);
                 if (!$this->upload->do_upload("foto")) {

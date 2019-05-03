@@ -123,7 +123,7 @@ class M_Organisasi extends CI_Model {
         if (!empty($query)) {
             if(!empty($logo) && !empty($logo["name"])) {
                 $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/gambar/organisasi";
-                $config["allowed_types"] = "jpg|jpeg|png";
+                $config["allowed_types"] = "jpg|jpeg|png|JPG|JPEG|PNG";
                 $config["encrypt_name"] = TRUE;
                 $this->load->library("upload", $config);
                 if (!$this->upload->do_upload("logo")) {

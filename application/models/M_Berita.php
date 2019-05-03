@@ -20,7 +20,7 @@ class M_Berita extends CI_Model {
         if (!empty($query)) {
             if(!empty($gambar) && !empty($gambar["name"])) {
                 $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/berita";
-                $config["allowed_types"] = "jpg|jpeg|png";
+                $config["allowed_types"] = "jpg|jpeg|png|JPG|JPEG|PNG";
                 $config["encrypt_name"] = TRUE;
                 $this->load->library("upload", $config);
                 if (!$this->upload->do_upload("gambar")) {
@@ -66,7 +66,7 @@ class M_Berita extends CI_Model {
         if (!empty($query)) {
             if(!empty($gambar) && !empty($gambar["name"])) {
                 $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/berita";
-                $config["allowed_types"] = "jpg|jpeg|png";
+                $config["allowed_types"] = "jpg|jpeg|png|JPG|JPEG|PNG";
                 $config["encrypt_name"] = TRUE;
                 $this->load->library("upload", $config);
                 if (!$this->upload->do_upload("gambar")) {

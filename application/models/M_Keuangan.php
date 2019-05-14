@@ -2,8 +2,7 @@
 defined("BASEPATH") OR exit("No direct script access allowed");
 
 class M_Keuangan extends CI_Model {
-    public function daftar($periode, $bulan)
-    {
+    public function daftar($periode, $bulan) {
         if (!empty($bulan) && is_numeric($bulan)) {
             $query = $this->db->select("bulan.bulan_keterangan, keuangan.*")->from("keuangan")
             ->join("bulan", "bulan.bulan_id=MONTH(keuangan.keuangan_tanggal)")
@@ -57,6 +56,13 @@ class M_Keuangan extends CI_Model {
 
         if ($query->num_rows() > 0) {
             $query = $query->row();
+
+            if (@is_file($this->M_Pengaturan->directory()."/assets/keuangan/".$id.".png")) {
+                $gambar	= $this->M_Pengaturan->directory()."/assets/keuangan/".$id.".png";
+            } else {
+                $gambar	= "#";
+            }
+
             return array(
                 "status" => 200,
                     "keterangan" => array(
@@ -66,7 +72,8 @@ class M_Keuangan extends CI_Model {
                         "judul" => $query->keuangan_judul,
                         "jumlah" => $query->keuangan_jumlah,
                         "keterangan" => $query->keuangan_keterangan,
-                        "nominal" => $query->keuangan_nominal
+                        "nominal" => $query->keuangan_nominal,
+                        "gambar" => $gambar
                     )
             );
         }
@@ -81,7 +88,8 @@ class M_Keuangan extends CI_Model {
         $judul,
         $jumlah,
         $keterangan,
-        $nominal
+        $nominal,
+        $gambar
     ) {
         $query = $this->db->insert("keuangan",
             array(
@@ -94,6 +102,22 @@ class M_Keuangan extends CI_Model {
             )
         );
         if (!empty($query)) {
+            if(!empty($gambar) && !empty($gambar["name"])) {
+                $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/keuangan";
+                $config["allowed_types"] = "jpg|jpeg|png|JPG|JPEG|PNG";
+                $config["encrypt_name"] = TRUE;
+                $this->load->library("upload", $config);
+                if (!$this->upload->do_upload("gambar")) {
+                    return array(
+                        "status" => 403,
+                        "keterangan" => @str_replace("<p>", "", @str_replace("</p>", "", $this->upload->display_errors()))
+                    );
+                } else {
+                    $data       = $this->upload->data();
+                    @rename($config["upload_path"]."/".$data["file_name"], $config["upload_path"]."/".$this->db->insert_id().".png");
+                }
+            }
+
             return array(
                 "status" => 200,
                 "keterangan" => "Data keuangan berhasil diperbarui."
@@ -113,7 +137,8 @@ class M_Keuangan extends CI_Model {
         $judul,
         $jumlah,
         $keterangan,
-        $nominal
+        $nominal,
+        $gambar
     ) {
         $query = $this->db->where("keuangan_id", $id)->update("keuangan",
             array(
@@ -125,6 +150,22 @@ class M_Keuangan extends CI_Model {
             )
         );
         if (!empty($query)) {
+            if(!empty($gambar) && !empty($gambar["name"])) {
+                $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/keuangan";
+                $config["allowed_types"] = "jpg|jpeg|png|JPG|JPEG|PNG";
+                $config["encrypt_name"] = TRUE;
+                $this->load->library("upload", $config);
+                if (!$this->upload->do_upload("gambar")) {
+                    return array(
+                        "status" => 403,
+                        "keterangan" => @str_replace("<p>", "", @str_replace("</p>", "", $this->upload->display_errors()))
+                    );
+                } else {
+                    $data       = $this->upload->data();
+                    @rename($config["upload_path"]."/".$data["file_name"], $config["upload_path"]."/".$id.".png");
+                }
+            }
+
             return array(
                 "status" => 200,
                 "keterangan" => "Data keuangan berhasil diperbarui."
@@ -142,6 +183,8 @@ class M_Keuangan extends CI_Model {
     {
         $query = $this->db->where("keuangan_id", $id)->delete("keuangan");
         if (!empty($query)) {
+            @unlink($this->M_Pengaturan->directory()."/assets/keuangan/".$id.".png");
+
             return array(
                 "status" => 200,
                 "keterangan" => "Data berhasil dihapus."

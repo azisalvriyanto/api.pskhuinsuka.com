@@ -67,7 +67,8 @@ class Keuangan extends CI_Controller {
                 $this->input->post("judul"),
                 $this->input->post("jumlah"),
                 $this->input->post("keterangan"),
-                $this->input->post("nominal")
+                $this->input->post("nominal"),
+				$_FILES["gambar"]
             );
 
             json_output(200, $response);
@@ -94,7 +95,8 @@ class Keuangan extends CI_Controller {
                 $this->input->post("judul"),
                 $this->input->post("jumlah"),
                 $this->input->post("keterangan"),
-                $this->input->post("nominal")
+                $this->input->post("nominal"),
+				$_FILES["gambar"]
             );
 
             json_output(200, $response);

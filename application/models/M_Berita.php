@@ -7,16 +7,31 @@ class M_Berita extends CI_Model {
 		$penerbit,
 		$judul,
 		$isi,
-		$gambar
+		$gambar,
+        $kegiatan
     ) {
-        $query = $this->db->insert("berita",
-            array(
-                "berita_keterangan" => $keterangan,
-                "berita_penerbit" => $penerbit,
-                "berita_judul" => $judul,
-                "berita_isi" => $isi
-            )
-        );
+        if (!empty($kegiatan) && $kegiatan !== "undefined" && is_numeric($kegiatan)) {
+            $query = $this->db->insert("berita",
+                array(
+                    "berita_keterangan" => $keterangan,
+                    "berita_penerbit" => $penerbit,
+                    "berita_judul" => $judul,
+                    "berita_isi" => $isi,
+                    "berita_kegiatan" => $kegiatan
+                )
+            );
+        } else {
+            $query = $this->db->insert("berita",
+                array(
+                    "berita_keterangan" => $keterangan,
+                    "berita_penerbit" => $penerbit,
+                    "berita_judul" => $judul,
+                    "berita_isi" => $isi,
+                    "berita_kegiatan" => "0"
+                )
+            );
+        }
+
         if (!empty($query)) {
             if(!empty($gambar) && !empty($gambar["name"])) {
                 $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/berita";
@@ -54,15 +69,29 @@ class M_Berita extends CI_Model {
         $keterangan,
 		$judul,
 		$isi,
-		$gambar
+        $gambar,
+        $kegiatan
     ) {
-        $query = $this->db->where("berita_id", $id)->update("berita",
-            array(
-                "berita_keterangan" => $keterangan,
-                "berita_judul" => $judul,
-                "berita_isi" => $isi
-            )
-        );
+        if (!empty($kegiatan) && $kegiatan !== "undefined" && is_numeric($kegiatan)) {
+            $query = $this->db->where("berita_id", $id)->update("berita",
+                array(
+                    "berita_keterangan" => $keterangan,
+                    "berita_judul" => $judul,
+                    "berita_isi" => $isi,
+                    "berita_kegiatan" => $kegiatan
+                )
+            );
+        } else {
+            $query = $this->db->where("berita_id", $id)->update("berita",
+                array(
+                    "berita_keterangan" => $keterangan,
+                    "berita_judul" => $judul,
+                    "berita_isi" => $isi,
+                    "berita_kegiatan" => "0"
+                )
+            );
+        }
+        
         if (!empty($query)) {
             if(!empty($gambar) && !empty($gambar["name"])) {
                 $config["upload_path"] = $this->M_Pengaturan->directory()."/assets/berita";

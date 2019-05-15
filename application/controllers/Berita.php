@@ -15,13 +15,15 @@ class Berita extends CI_Controller {
 			&& !empty($this->input->post("keterangan")) && is_numeric($this->input->post("keterangan")) === TRUE
 			&& !empty($this->input->post("penerbit"))
 			&& !empty($this->input->post("judul"))
+			&& !empty($this->input->post("kegiatan"))
 		) {
 			$response = $this->M_Berita->tambah(
 				$this->input->post("keterangan"),
 				$this->input->post("penerbit"),
 				$this->input->post("judul"),
 				$this->input->post("isi"),
-				$_FILES["gambar"]
+				$_FILES["gambar"],
+				$this->input->post("kegiatan")
 			);
             
             json_output(200, $response);
@@ -39,13 +41,15 @@ class Berita extends CI_Controller {
 			&& !empty($this->input->post("keterangan")) && is_numeric($this->input->post("keterangan")) === TRUE
 			&& !empty($this->input->post("judul"))
 			&& !empty($_FILES["gambar"])
+			&& !empty($this->input->post("kegiatan"))
 		) {
 			$response = $this->M_Berita->perbarui(
 				$this->input->post("id"),
 				$this->input->post("keterangan"),
 				$this->input->post("judul"),
 				$this->input->post("isi"),
-				$_FILES["gambar"]
+				$_FILES["gambar"],
+				$this->input->post("kegiatan")
 			);
 
             json_output(200, $response);

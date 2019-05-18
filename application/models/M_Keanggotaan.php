@@ -4,7 +4,8 @@ defined("BASEPATH") OR exit("No direct script access allowed");
 class M_Keanggotaan extends CI_Model {
     public function daftar($periode)
     {
-        $query = $this->db->select("keanggotaan.*, divisi.divisi_keterangan, jabatan.jabatan_keterangan")->from("keanggotaan")
+        $query = $this->db->select("akun.akun_keterangan, keanggotaan.*, divisi.divisi_keterangan, jabatan.jabatan_keterangan")->from("keanggotaan")
+        ->join("akun", "akun.akun_username=keanggotaan.keanggotaan_username")
         ->join("jabatan", "jabatan.jabatan_id=keanggotaan.keanggotaan_jabatan")
         ->join("divisi", "divisi.divisi_id=keanggotaan.keanggotaan_divisi")
         ->where("keanggotaan_periode", $periode)
@@ -26,9 +27,10 @@ class M_Keanggotaan extends CI_Model {
 
     public function lihat($username)
     {
-        $query = $this->db->select("keanggotaan.*, divisi.divisi_keterangan, jabatan.jabatan_keterangan")->from("keanggotaan")
+        $query = $this->db->select("akun.akun_keterangan, keanggotaan.*, divisi.divisi_keterangan, jabatan.jabatan_keterangan")->from("keanggotaan")
         ->join("jabatan", "jabatan.jabatan_id=keanggotaan.keanggotaan_jabatan")
         ->join("divisi", "divisi.divisi_id=keanggotaan.keanggotaan_divisi")
+        ->join("akun", "akun.akun_username=keanggotaan.keanggotaan_username")
         ->where("keanggotaan_username", $username)->get();
 
         if ($query->num_rows() > 0) {

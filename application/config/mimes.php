@@ -74,8 +74,14 @@ return array(
 	'wav'	=>	array('audio/x-wav', 'audio/wave', 'audio/wav'),
 	'bmp'	=>	array('image/bmp', 'image/x-bmp', 'image/x-bitmap', 'image/x-xbitmap', 'image/x-win-bitmap', 'image/x-windows-bmp', 'image/ms-bmp', 'image/x-ms-bmp', 'application/bmp', 'application/x-bmp', 'application/x-win-bitmap'),
 	'gif'	=>	'image/gif',
-	'jpeg'	=>	array('image/jpeg', 'image/pjpeg'),
-	'jpg'	=>	array('image/jpeg', 'image/pjpeg'),
+	'jpeg'	=>	array(
+		'image/jpeg', 'image/pjpeg',
+		'image/png',  'image/x-png'
+	),
+	'jpg'	=>	array(
+		'image/jpeg', 'image/pjpeg',
+		'image/png',  'image/x-png'
+	),
 	'jpe'	=>	array('image/jpeg', 'image/pjpeg'),
 	'jp2'	=>	array('image/jp2', 'video/mj2', 'image/jpx', 'image/jpm'),
 	'j2k'	=>	array('image/jp2', 'video/mj2', 'image/jpx', 'image/jpm'),
@@ -86,8 +92,8 @@ return array(
 	'mj2'	=>	array('image/jp2', 'video/mj2', 'image/jpx', 'image/jpm'),
 	'mjp2'	=>	array('image/jp2', 'video/mj2', 'image/jpx', 'image/jpm'),
 	'png'	=>	array(
-					'image/png',  'image/x-png',
-					'image/jpeg', 'image/pjpeg'
+		'image/png',  'image/x-png',
+		'image/jpeg', 'image/pjpeg'
 				),
 	'tiff'	=>	'image/tiff',
 	'tif'	=>	'image/tiff',
